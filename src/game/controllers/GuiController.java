@@ -25,12 +25,12 @@ public class GuiController {
 		
 		for (int i = 0; i < guiFields.length; i++) {
 		
-		FieldItem field = fieldCollection.getField(i);
+		game.entities.fields.Field field = fieldCollection.getField(i);
 			
 		guiFields[i] = new Street.Builder()
-						.setTitle(field.getTitle())
-						.setSubText(Integer.toString(field.getValue()))
-						.setDescription(field.getDescription())
+						.setTitle(field.getTitel())
+						.setSubText(Integer.toString(field.getPosition()))
+						//.setDescription(field.getDescription())
 						.build();
 		}
 		
@@ -58,9 +58,17 @@ public class GuiController {
 		return GUI.getUserString(language.getText("request_player_name"));
 		
 	}
+	public void showMessage(String message)
+	{
+		GUI.showMessage(message);
+	}
 	
+	public int getInteger()
+	{
+		return GUI.getUserInteger("Vælg antal spillere", 2, 6);
+	}
 
-	public void update(int[] diceResults, int newPosition, FieldItem field, Player player) {
+	public void update(int[] diceResults, int newPosition, game.entities.fields.Field field, Player player) {
 		
 		/*
 		 * set dice and update balance
@@ -82,11 +90,16 @@ public class GuiController {
 		 * display title and description in the chance card area.
 		 */
 		
-		GUI.setChanceCard(field.getTitle() + " - " + field.getDescription());
-		GUI.displayChanceCard();
+		//GUI.setChanceCard(field.getTitel() + " - " + field.getDescription());
+		//GUI.displayChanceCard();
 		
 		GUI.getUserButtonPressed(language.getText("ready_next"), language.getText("roll_button"));
 		
+	}
+	
+	public void removePlayerFromBoard(Player player)
+	{
+		GUI.removeCar(player.getCurrentFieldPosition().getPosition(),player.getName());
 	}
 	
 	public void close()

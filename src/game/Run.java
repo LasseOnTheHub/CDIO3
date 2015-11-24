@@ -13,6 +13,7 @@ public class Run
     public static void main(String[] args)
     {
         LanguageController language = new LanguageController("da");
+        int numberOfPlayers;
         
         FieldCollection    fields = FieldCollection.initialize(language);
         GuiController      gui    = GuiController.initialize(language, fields);
@@ -20,12 +21,16 @@ public class Run
         /*
          * Fetch player names from the GUI
          */
-        String[] names = { 
-            gui.requestPlayerName(), 
-            gui.requestPlayerName() 
-        };
+        numberOfPlayers = gui.getInteger();
+        String[] names = new String[numberOfPlayers];
+        
+        for (int i = 0; i < numberOfPlayers; i++)
+		{
+        	 names[i] += gui.requestPlayerName();
+		}
+        
 
-        PlayerCollection players = PlayerCollection.initialize(names, 1000);
+        PlayerCollection players = PlayerCollection.initialize(names, 30000);
 
         DiceCup        cup  = DiceCup.initialize();
         GameController game = new GameController(gui, players, fields, cup);

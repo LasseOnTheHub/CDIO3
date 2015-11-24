@@ -1,11 +1,41 @@
 package game.entities.player;
 
+import game.entities.fields.Field;
+
 public class Player
 {
     private String name;
     private Account account;
+    private Field ownedFields;
+    private boolean active;
+    private Field currentFieldPosition;
 
-    public Player(String name, Account account)
+    public Field getCurrentFieldPosition()
+	{
+		return currentFieldPosition;
+	}
+
+	public void setCurrentFieldPosition(Field currentFieldPosition)
+	{
+		this.currentFieldPosition = currentFieldPosition;
+	}
+
+	public Field getOwnedFields()
+	{
+		return ownedFields;
+	}
+
+	public void setOwnedFields(Field ownedFields)
+	{
+		this.ownedFields = ownedFields;
+	}
+
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+
+	public Player(String name, Account account)
     {
         this.name = name;
         this.account = account;

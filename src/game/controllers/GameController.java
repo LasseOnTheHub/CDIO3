@@ -9,7 +9,6 @@ import game.entities.player.PlayerCollection;
 
 public class GameController
 {
-    final private int POINT_LIMIT = 3000;
 
     private DiceCup cup;
     private GuiController gui;
@@ -34,31 +33,25 @@ public class GameController
         {
             boolean rethrow = false;
 
-            int[] points = this.cup.roll();
-            int position = points[0] + points[1] - 2;
-
             /*
              * Fetch the current player
              */
             Player player   = this.players.getCurrentPlayer();
             Account account = player.getAccount();
+            
+            int[] points = this.cup.roll();
+            int position = (points[0] + points[1] - 2)+(player.getCurrentFieldPosition().getPosition());
+
+
 
             /*
              * Fetch the current field
              */
-            FieldItem field = this.fields.getField(position);
+            //FieldItem field = this.fields.getField(position);
+            game.entities.fields.Field field = this.fields.getField(position);
 
-            if(field.isRethrowAvailable())
-            {
-                rethrow = true;
-            }
 
-            account.changeBalance(field.getValue());
 
-            if(account.getBalance() >= this.POINT_LIMIT)
-            {
-                finished = true;
-            }
 
             this.gui.update(points, position, field, this.players.getCurrentPlayer());
 

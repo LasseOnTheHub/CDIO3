@@ -11,27 +11,20 @@ public class PlayerCollection
 
     public static PlayerCollection initialize(String[] names, int balance)
     {
-        Car[]    cars    = new Car[2];
-        Player[] players = new Player[2];
+        Car[]    cars    = new Car[names.length];
+        Player[] players = new Player[names.length];
 
-        cars[0] = new Car.Builder()
-                .primaryColor(Color.MAGENTA)
-                .secondaryColor(Color.BLUE)
-                .patternFill()
-                .typeRacecar()
-                .build();
-
-        cars[1] = new Car.Builder()
-                .primaryColor(Color.BLACK)
-                .secondaryColor(Color.RED)
-                .patternDotted()
-                .typeUfo()
-                .build();
 
         for (int i = 0; i < names.length; i++)
         {
+        	cars[i] = new Car.Builder()
+                    .primaryColor(Color.MAGENTA)
+                    .secondaryColor(Color.BLUE)
+                    .patternFill()
+                    .typeRacecar()
+                    .build();
+        	
             players[i] = new Player(names[i], new Account(balance));
-
             GUI.addPlayer(
                 players[i].getName(), 
                 players[i].getAccount().getBalance(), 
